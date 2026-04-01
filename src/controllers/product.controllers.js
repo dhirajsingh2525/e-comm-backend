@@ -45,13 +45,33 @@ async function getSellerProduct(req,res) {
 }
 
 
-async function getAllProducts(req,res) {
-   const products = await productModel.find().populate("seller");
+async function getAllProducts(req, res) {
 
-   res.status(200).json({
-    message: "All products fetched",
-    products
-   })
+  try {
+    const { search } = req.query;
+
+    let query = {};
+
+    if (search) {
+      query = {
+        title: { $regex: search, $options: "i" }
+      };
+    }
+
+    const products = await productModel
+      .find(query)
+      .populate("seller");
+
+    res.status(200).json({
+      message: "Products fetched successfully",
+      products
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    });
+  }
 }
 
 

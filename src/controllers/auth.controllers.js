@@ -58,7 +58,6 @@ async function loginuser(req, res) {
         $or: [ { username: identifier  }, { email: identifier  } ],
         role: "user"
     })
-    console.log(user, "user")
 
     if (!user) {
         return res.status(400).json({
@@ -78,9 +77,9 @@ async function loginuser(req, res) {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET)
 
     res.cookie("token", token,  {
-  httpOnly: true,
-  secure: true,     // production me
-  sameSite: "none", // agar frontend/backend alag domain pe hain
+  httpOnly: true, // js access block
+  secure: true,     // https only
+  sameSite: "none", // cross-site cookie controll
 })
 
     res.status(200).json({
@@ -169,8 +168,8 @@ async function loginSeller(req, res) {
 
     res.cookie("token", token,  {
   httpOnly: true,
-  secure: true,     // production me
-  sameSite: "none", // agar frontend/backend alag domain pe hain
+  secure: true,    
+  sameSite: "none", 
 })
 
     res.status(200).json({
