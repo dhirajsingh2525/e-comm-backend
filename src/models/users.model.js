@@ -34,13 +34,11 @@ const userSchema = new mongoose.Schema({
     },
     mobile: {
         type: Number,
-        required: true
 
     },
     gender: {
         type: String,
         enum: ["male", "female"],
-        required: true
     }
 
 
