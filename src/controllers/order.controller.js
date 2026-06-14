@@ -31,20 +31,32 @@ async function createOrder(req,res) {
 }
 
 async function getOrder(req, res) {
-        const orders = await orderModel.find()
-      .populate("userId", "fullname email")      
-      .populate("products.productId", "title price images"); 
-      console.log(orders,"order") 
-      
-      if(orders.length === 0){
-        return res.status(404).json({ message: "Order not found" });
-      }
+  try {
+
+    const userId = req.user._id;
+
+    const orders = await orderModel.find({
+      userId: userId
+    })
+    .populate("userId", "fullname email")
+    .populate("products.productId", "title price images");
+
+    if (orders.length === 0) {
+      return res.status(404).json({
+        message: "No orders found"
+      });
+    }
 
     res.status(200).json({
-      message: "Orders fetched successfully ✅",
-      orders,
+      message: "Orders fetched successfully",
+      orders
     });
 
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    });
+  }
 }
 
 module.exports = {
