@@ -209,7 +209,12 @@ async function getMe(req,res) {
   // authMiddleware ne cookie verify karke req.user set kar diya
 
 async function logoutUser(req,res) {
-    res.clearCookie("token")
+      res.clearCookie("token", {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/",
+});
     res.send("logout user")
 }
 
