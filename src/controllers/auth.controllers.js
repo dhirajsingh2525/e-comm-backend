@@ -206,7 +206,6 @@ async function updateUser(req,res) {
 async function getMe(req,res) {
        res.json({ user: req.user });
 } 
-  // authMiddleware ne cookie verify karke req.user set kar diya
 
 async function logoutUser(req,res) {
       res.clearCookie("token", {

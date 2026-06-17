@@ -8,6 +8,8 @@ const paymentRoutes = require("./routes/payment.routes");
 const productModel = require('./models/products.model');
 const addressRouter = require("./routes/address.routes");
 const orderRouter = require("./routes/order.routes");;
+const patch = require("path")
+
 
 
 app.use(express.json());
@@ -20,6 +22,10 @@ app.use(cors({
   ],
   credentials: true
 }));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve("public/index.html"));
+});
 
 app.use("/api", userRouter);
 app.use('/', productRouter);
