@@ -9,7 +9,7 @@ const upload = multer({
     storage: multer.memoryStorage()
 })
 
-router.post("/api/product",
+router.post("/product",
      authMiddleware.authSeller,
      upload.array("images", 5),
      productController.createProduct
