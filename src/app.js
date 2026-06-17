@@ -16,7 +16,7 @@ app.use(cookieParser())
 
 
 app.use("/api", userRouter);
-app.use('/', productRouter);
+app.use('/api', productRouter);
 app.use("/payment", paymentRoutes);
 app.use("/api/user", addressRouter);
 app.use("/api", orderRouter);
