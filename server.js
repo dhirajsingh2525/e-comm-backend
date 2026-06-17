@@ -5,8 +5,9 @@ const patch = require("path")
 
 connectToDB();
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve("public/index.html"));
+
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.listen(process.env.PORT, ()=>{
