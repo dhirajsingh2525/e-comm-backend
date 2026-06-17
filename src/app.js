@@ -2,30 +2,18 @@ const express = require('express');
 const app = express();
 const userRouter = require("./routes/auth.routes");
 const cookieParser = require("cookie-parser");
-const cors = require("cors");
 const productRouter = require("./routes/product.routes");
 const paymentRoutes = require("./routes/payment.routes");
 const productModel = require('./models/products.model');
 const addressRouter = require("./routes/address.routes");
 const orderRouter = require("./routes/order.routes");;
-const patch = require("path")
 
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended:true }))
 app.use(cookieParser())
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://e-comm-frontend-gom2.vercel.app"
-  ],
-  credentials: true
-}));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve("public/index.html"));
-});
 
 app.use("/api", userRouter);
 app.use('/', productRouter);
